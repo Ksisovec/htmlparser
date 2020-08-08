@@ -6138,7 +6138,7 @@ public class Tokenizer implements Locator, Locator2 {
         // Discard the characters "DOCTYPE" accumulated as a potential bogus
         // comment into strBuf.
         clearStrBufAfterUse();
-        doctypeName = "";
+        doctypeName = null;
         if (systemIdentifier != null) {
             Portability.releaseString(systemIdentifier);
             systemIdentifier = null;
@@ -6449,7 +6449,7 @@ public class Tokenizer implements Locator, Locator2 {
                          * Create a new DOCTYPE token. Set its force-quirks flag
                          * to on.
                          */
-                        doctypeName = "";
+                        doctypeName = null;
                         if (systemIdentifier != null) {
                             Portability.releaseString(systemIdentifier);
                             systemIdentifier = null;
