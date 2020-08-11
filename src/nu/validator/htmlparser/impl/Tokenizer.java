@@ -1580,7 +1580,7 @@ public class Tokenizer implements Locator, Locator2 {
                                 break dataloop; // FALL THROUGH continue
                             // stateloop;
                             case '\u0000':
-                                emitReplacementCharacter(buf, pos);
+                                maybeEmitReplacementCharacter(buf, pos);
                                 continue;
                             case '\r':
                                 emitCarriageReturn(buf, pos);
@@ -3083,7 +3083,7 @@ public class Tokenizer implements Locator, Locator2 {
                                 state = transition(state, Tokenizer.CDATA_RSQB, reconsume, pos);
                                 break cdatasectionloop; // FALL THROUGH
                             case '\u0000':
-                                emitReplacementCharacter(buf, pos);
+                                maybeEmitReplacementCharacter(buf, pos);
                                 continue;
                             case '\r':
                                 emitCarriageReturn(buf, pos);
@@ -6193,6 +6193,13 @@ public class Tokenizer implements Locator, Locator2 {
             throws SAXException {
         flushChars(buf, pos);
         tokenHandler.zeroOriginatingReplacementCharacter();
+        cstart = pos + 1;
+    }
+
+    private void maybeEmitReplacementCharacter(@NoLength char[] buf, int pos)
+            throws SAXException {
+        flushChars(buf, pos);
+        tokenHandler.zeroOrReplacementCharacter();
         cstart = pos + 1;
     }
 
