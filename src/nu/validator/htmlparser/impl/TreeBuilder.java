@@ -3907,8 +3907,9 @@ public abstract class TreeBuilder<T> implements TokenHandler,
 
     private int findLastInTableScopeOrRootTemplateTbodyTheadTfoot() {
         for (int i = currentPtr; i > 0; i--) {
-            if (stack[i].getGroup() == TreeBuilder.TBODY_OR_THEAD_OR_TFOOT ||
-                    stack[i].getGroup() == TreeBuilder.TEMPLATE) {
+            if (stack[i].ns == "http://www.w3.org/1999/xhtml"
+                    && (stack[i].getGroup() == TreeBuilder.TBODY_OR_THEAD_OR_TFOOT
+                            || stack[i].getGroup() == TreeBuilder.TEMPLATE)) {
                 return i;
             }
         }
@@ -4699,7 +4700,7 @@ public abstract class TreeBuilder<T> implements TokenHandler,
 
     private int findLastOrRoot(int group) {
         for (int i = currentPtr; i > 0; i--) {
-            if (stack[i].getGroup() == group) {
+            if (stack[i].ns == "http://www.w3.org/1999/xhtml" && stack[i].getGroup() == group) {
                 return i;
             }
         }
