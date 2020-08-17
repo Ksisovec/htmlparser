@@ -55,6 +55,8 @@ import com.sdicons.json.parser.JSONParser;
 
 public class TokenizerTester {
 
+    private static int exitStatus = 0;
+
     private static JSONString PLAINTEXT = new JSONString("PLAINTEXT state");
 
     private static JSONString PCDATA = new JSONString("Data state");
@@ -193,6 +195,7 @@ public class TokenizerTester {
             if (jsonDeepEquals(actualTokens, expectedTokens)) {
                 writer.write("Success\n");
             } else {
+                exitStatus = 1;
                 writer.write("Failure\n");
                 writer.write(description);
                 writer.write("\nInput:\n");
@@ -204,6 +207,7 @@ public class TokenizerTester {
                 writer.write("\n");
             }
         } catch (Throwable t) {
+            exitStatus = 1;
             writer.write("Failure\n");
             writer.write(description);
             writer.write("\nInput:\n");
@@ -231,6 +235,7 @@ public class TokenizerTester {
             TokenizerTester tester = new TokenizerTester(bais);
             tester.runTests();
         }
+        System.exit(exitStatus);
     }
 
 }
