@@ -336,7 +336,7 @@ public class Driver implements EncodingDeclarationHandler {
     public boolean internalEncodingDeclaration(String internalCharset)
             throws SAXException {
         try {
-            internalCharset = Encoding.toAsciiLowerCase(internalCharset);
+            internalCharset = internalCharset.toLowerCase();
             Encoding cs;
             if ("utf-16".equals(internalCharset)
                     || "utf-16be".equals(internalCharset)
@@ -428,7 +428,7 @@ public class Driver implements EncodingDeclarationHandler {
         if (encoding == null) {
             return null;
         }
-        encoding = Encoding.toAsciiLowerCase(encoding);
+        encoding = encoding.toLowerCase();
         try {
             Encoding cs = Encoding.forName(encoding);
             if ("utf-16".equals(cs.getCanonName())
